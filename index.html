@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marianne's Proposal</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      background-color: #fdfdfd;
+      color: #4a4a4a;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #ff8c94;
+      margin-bottom: 20px;
+    }
+
+    img {
+      width: 250px;
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    #button-container {
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-block;
+      line-height: 1.1; /* Adjust the line height for better spacing */
+    }
+
+    .yes-button {
+      background-color: #77dd77;
+      color: white;
+      white-space: nowrap; /* Prevent line breaks */
+    }
+
+    .no-button {
+      background-color: #ff6961;
+      color: white;
+      white-space: normal; /* Allow the no button to break text */
+      max-width: 180px; /* Limit the button width to avoid stretching */
+      word-wrap: break-word; /* Break text properly for long lines */
+    }
+
+    .yes-button:hover {
+      background-color: #58b958;
+    }
+
+    .no-button:hover {
+      background-color: #d15050;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .final-message {
+      font-size: 1.2rem;
+      margin-top: 30px;
+      color: #555;
+      text-align: center;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: #fff0f5;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>Will you be Marianne's boyfriend?</h1>
+  <img src="1.png" id="main-image" alt="Proposal Image">
+
+  <div id="button-container">
+    <button class="yes-button" id="yes-button" onclick="yesOption()">Yes</button>
+    <button class="no-button" id="no-button" onclick="noOption()">No</button>
+  </div>
+
+  <div id="final-message" class="hidden"></div>
+
+  <script>
+    let noText = [
+      "are you sure?", 
+      "really sure?", 
+      "but marianne can be your michonne? 🥺", 
+      "Think again!", 
+      "Last Chance!", 
+      "Surely not?", 
+      "you might regret this!", 
+      "Marianne is the woman of your dreams.\nCome on!", 
+      "if you click this, you hate michonne"
+    ];
+    
+    let noIndex = 0;
+    let yesButtonSize = 18; // Starting font size for Yes button
+
+    // Function to display a nice formatted time like Monday 10:15 AM
+    function getFormattedDate() {
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const date = new Date();
+      const dayName = days[date.getDay()];
+      const hours = date.getHours();
+      const minutes = date.getMinutes().toString().padStart(2, "0");
+      const period = hours >= 12 ? "PM" : "AM";
+      const formattedTime = `${dayName} ${hours % 12 || 12}:${minutes}${period}`;
+      return formattedTime;
+    }
+
+    function yesOption() {
+      // Remove buttons and show success message with 2.png
+      document.getElementById("button-container").innerHTML = '';
+      document.querySelector('h1').innerText = "Ok yay!!";
+      document.getElementById("main-image").src = "2.png"; // Replace the image with 2.png
+    }
+
+    function noOption() {
+      if (noIndex < noText.length) {
+        document.getElementById("no-button").innerText = noText[noIndex];
+        noIndex++;
+        // Enlarge Yes button progressively
+        yesButtonSize += 10;
+        document.getElementById("yes-button").style.fontSize = yesButtonSize + "px"; 
+        // Shrink No button progressively
+        document.getElementById("no-button").style.fontSize = (18 - noIndex) + "px";
+      } else {
+        // Final message once the red button reaches the last stage
+        document.getElementById("button-container").innerHTML = ''; 
+        document.querySelector('h1').classList.add('hidden');
+        const finalMessage = `I hereby declare that str4hm, on ${getFormattedDate()}, has stated he loathes Michonne Hawthorne with such a passion, and has decided to marry Marianne instead.`;
+        document.getElementById("final-message").innerText = finalMessage;
+        document.getElementById("final-message").classList.remove('hidden');
+        document.getElementById("main-image").src = "2.png"; // Replace the image with 2.png
+      }
+    }
+  </script>
+</body>
+</html>
